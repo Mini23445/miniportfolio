@@ -183,10 +183,16 @@
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
-            z-index: 9999;
+            z-index: 10001;
             transition: transform 0.1s ease-out;
             box-shadow: 0 0 20px rgba(127, 255, 0, 0.5);
             display: none;
+        }
+
+        iframe {
+            pointer-events: auto;
+            position: relative;
+            z-index: 1;
         }
 
         @media (max-width: 768px) {
