@@ -608,25 +608,21 @@
     <script>
         const musicToggle = document.getElementById('musicToggle');
         const bgMusic = document.getElementById('bgMusic');
-        let isPlaying = true; // Default to true
+        let isPlaying = true; 
 
-        // TikTok / Pop song playlist
+        // Playlist
         const playlist = [
             'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
             'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
             'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
         ];
 
-        // Note: In a real scenario, you'd use direct URLs to mp3 files of popular songs.
-        // For legal and reliability reasons, I'm using high-quality placeholders.
-        // You can replace these with your own mp3 links if you have them!
-
         let currentSongIndex = 0;
         let shuffledPlaylist = [...playlist].sort(() => Math.random() - 0.5);
 
         function loadSong(index) {
             bgMusic.src = shuffledPlaylist[index];
-            bgMusic.volume = 0.2; // Reduced volume to 20%
+            bgMusic.volume = 0.2; 
             bgMusic.load();
         }
 
@@ -634,37 +630,31 @@
             currentSongIndex = (currentSongIndex + 1) % shuffledPlaylist.length;
             loadSong(currentSongIndex);
             if (isPlaying) {
-                bgMusic.play().catch(e => console.log("Playback error"));
+                bgMusic.play().catch(e => console.log("error"));
             }
         }
 
         bgMusic.addEventListener('ended', nextSong);
 
-        // Initial load
         loadSong(currentSongIndex);
 
-        // Function to handle initial play
         function startMusic() {
             bgMusic.play().then(() => {
                 musicToggle.classList.add('playing');
                 isPlaying = true;
-                console.log("Music started via user interaction");
-                // Remove listeners after first successful play
                 document.removeEventListener('click', startMusic);
                 document.removeEventListener('scroll', startMusic);
                 document.removeEventListener('keydown', startMusic);
             }).catch(e => {
-                console.log("Playback attempt failed", e);
+                console.log("failed", e);
             });
         }
 
-        // Try playing immediately, if fails, wait for ANY interaction
         window.addEventListener('load', () => {
             bgMusic.play().then(() => {
                 musicToggle.classList.add('playing');
                 isPlaying = true;
             }).catch(() => {
-                console.log("Autoplay blocked. Adding interaction listeners.");
                 document.addEventListener('click', startMusic);
                 document.addEventListener('scroll', startMusic);
                 document.addEventListener('keydown', startMusic);
@@ -677,7 +667,7 @@
                 bgMusic.pause();
                 musicToggle.classList.remove('playing');
             } else {
-                bgMusic.play().catch(e => console.log("Audio play blocked"));
+                bgMusic.play().catch(e => console.log("blocked"));
                 musicToggle.classList.add('playing');
             }
             isPlaying = !isPlaying;
@@ -695,7 +685,7 @@
             });
         });
 
-        // Scroll Progress
+        // Scroll
         const progressBar = document.getElementById('scrollProgress');
         window.addEventListener('scroll', () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
@@ -704,7 +694,7 @@
             progressBar.style.width = scrolled + "%";
         });
 
-        // Custom Cursor
+        // Cursor
         const cursor = document.getElementById('customCursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.display = 'block';
@@ -715,7 +705,7 @@
         document.addEventListener('mousedown', () => cursor.style.transform = 'scale(0.8)');
         document.addEventListener('mouseup', () => cursor.style.transform = 'scale(1)');
 
-        // Initialize Scroll Reveal
+        // Animation observer
         const observerOptions = {
             threshold: 0.15,
             rootMargin: '0px 0px -50px 0px'
@@ -725,7 +715,6 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('reveal');
-                    // Trigger counters if this is the services section
                     if (entry.target.id === 'services') {
                         startCounters();
                     }
@@ -759,10 +748,10 @@
             revealObserver.observe(section);
         });
 
-        // Initialize stars
         window.history.replaceState(null, null, window.location.pathname);
         window.scrollTo(0, 0);
 
+        // Stars
         const starsContainer = document.getElementById('stars');
         for (let i = 0; i < 50; i++) {
             const star = document.createElement('div');
