@@ -29,25 +29,25 @@
             from { opacity: 0; transform: translateY(40px); filter: blur(10px); } 
             to { opacity: 1; transform: translateY(0); filter: blur(0); } 
         }
-        
+
         section { padding: 6rem 0; opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.22, 1, 0.36, 1); filter: blur(10px); }
         section.reveal { opacity: 1; transform: translateY(0); filter: blur(0); }
 
         .build-card, .stat-card, .review-card, .skill-card, .portfolio-card { 
             transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); 
         }
-        
+
         .build-card:hover, .stat-card:hover, .skill-card:hover, .portfolio-card:hover { 
             transform: translateY(-20px) scale(1.08) rotate(2deg); 
             box-shadow: 0 40px 100px rgba(127, 255, 0, 0.6);
             border-color: #7fff00;
             background: rgba(45, 106, 79, 0.6);
         }
-        
+
         .build-icon, .skill-icon {
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        
+
         .build-card:hover .build-icon, .skill-card:hover .skill-icon {
             transform: scale(1.3) rotate(360deg);
             filter: drop-shadow(0 0 20px #7fff00);
@@ -58,11 +58,11 @@
             letter-spacing: 1px;
             filter: brightness(1.2);
         }
-        
+
         .nav-links a {
             transition: all 0.3s ease;
         }
-        
+
         .nav-links a:hover {
             transform: translateY(-3px) scale(1.1);
             color: #7fff00 !important;
@@ -71,7 +71,7 @@
         .stat-number {
             transition: all 0.5s ease;
         }
-        
+
         .stat-card:hover .stat-number {
             transform: scale(1.2);
             filter: drop-shadow(0 0 15px #7fff00);
@@ -175,7 +175,7 @@
         .skill-card:hover { transform: translateY(-10px); border-color: #7fff00; box-shadow: 0 10px 30px rgba(127, 255, 0, 0.2); }
         .skill-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
         .skill-name { font-weight: 600; color: #fff; }
-        
+
         .copy-toast { 
             position: fixed; 
             bottom: 3rem; 
@@ -208,7 +208,7 @@
             z-index: 2001;
             box-shadow: 0 0 10px #7fff00;
         }
-        
+
         .custom-cursor {
             width: 20px;
             height: 20px;
@@ -251,7 +251,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             animation: badgeFloat 3s ease-in-out infinite;
         }
-        
+
         .pulse-dot {
             width: 10px;
             height: 10px;
@@ -277,6 +277,182 @@
         }
 
         .footer { text-align: center; padding: 3.5rem 0; border-top: 2px solid rgba(144, 238, 144, 0.2); color: rgba(255, 255, 255, 0.6); font-size: 1rem; }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: rgba(26, 77, 46, 0.8);
+            backdrop-filter: blur(30px);
+            border: 2px solid rgba(127, 255, 0, 0.3);
+            border-radius: 30px;
+            padding: 3rem;
+            width: 90%;
+            max-width: 550px;
+            position: relative;
+            transform: translateY(30px) scale(0.9);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), 0 0 60px rgba(127, 255, 0, 0.2);
+            text-align: left;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: #7fff00;
+        }
+
+        .modal-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .modal-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+        }
+
+        .discord-card {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(127, 255, 0, 0.15);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .discord-label {
+            display: block;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .discord-input-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(127, 255, 0, 0.1);
+        }
+
+        .discord-username {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #7fff00;
+        }
+
+        .copy-modal-btn {
+            background: rgba(127, 255, 0, 0.1);
+            border: 1px solid rgba(127, 255, 0, 0.3);
+            color: #7fff00;
+            padding: 0.5rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-modal-btn:hover {
+            background: #7fff00;
+            color: #1a4d2e;
+        }
+
+        .modal-footer-btns {
+            display: flex;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-discord-profile {
+            flex: 2;
+            background: #5865F2;
+            color: #fff;
+            padding: 1rem;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(88, 101, 242, 0.3);
+        }
+
+        .btn-discord-profile:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(88, 101, 242, 0.5);
+            filter: brightness(1.1);
+        }
+
+        .btn-modal-close {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: none;
+            padding: 1rem;
+            border-radius: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-availability {
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        @media (max-width: 480px) {
+            .modal-content { padding: 2rem; }
+            .modal-title { font-size: 1.8rem; }
+            .modal-footer-btns { flex-direction: column; }
+        }
         @media (max-width: 768px) {
             .hero-content h1 { font-size: 2.5rem; }
             .subtitle { font-size: 1.1rem; }
@@ -304,6 +480,35 @@
 <body>
     <div class="scroll-progress" id="scrollProgress"></div>
     <div class="custom-cursor" id="customCursor"></div>
+    
+    <!-- Discord Modal -->
+    <div id="discordModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <h2 class="modal-title">Want to work together?</h2>
+            <p class="modal-subtitle">Let's build something amazing for your community</p>
+            
+            <div class="discord-card">
+                <span class="discord-label">DM me on Discord:</span>
+                <div class="discord-input-group">
+                    <span class="discord-username">@mini_dj</span>
+                    <button class="copy-modal-btn" id="copyUsername">Copy</button>
+                </div>
+            </div>
+            
+            <div class="modal-footer-btns">
+                <a href="https://discord.com/users/1234567890" target="_blank" class="btn-discord-profile">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1971.3728.2914a.077.077 0 01-.0066.1277 12.2986 12.2986 0 01-1.873.8923.076.076 0 00-.0416.1061c.3608.698.7719 1.3628 1.226 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/>
+                    </svg>
+                    Open Discord Profile
+                </a>
+                <button class="btn-modal-close" id="btnModalClose">Close</button>
+            </div>
+            
+            <p class="modal-availability">I typically respond within 24 hours</p>
+        </div>
+    </div>
     <div class="availability-badge">
         <div class="pulse-dot"></div>
         <span>Available for Work</span>
@@ -326,11 +531,11 @@
                 <div class="cta-buttons">
                     <a href="#past-work" class="btn btn-primary"><span>View My Work</span></a>
                     <a href="#services" class="btn btn-secondary"><span>What I Do</span></a>
-                    <button id="copyDiscord" class="btn" style="background: linear-gradient(135deg, #5865F2, #4752C4); color: white; box-shadow: 0 10px 40px rgba(88, 101, 242, 0.4); min-width: 200px;">
+                    <button id="openConnect" class="btn" style="background: linear-gradient(135deg, #7fff00, #32cd32); color: #1a4d2e; box-shadow: 0 10px 40px rgba(127, 255, 0, 0.4); min-width: 200px;">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 8px;">
                             <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1971.3728.2914a.077.077 0 01-.0066.1277 12.2986 12.2986 0 01-1.873.8923.076.076 0 00-.0416.1061c.3608.698.7719 1.3628 1.226 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/>
                         </svg>
-                        <span>Copy Discord</span>
+                        <span>Let's Connect</span>
                     </button>
                 </div>
             </div>
@@ -621,5 +826,6 @@
             starsContainer.appendChild(star);
         }
     </script>
+    <script src="script.js"></script>
 </body>
 </html>
