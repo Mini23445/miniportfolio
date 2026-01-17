@@ -233,6 +233,49 @@
             .custom-cursor { display: none !important; }
         }
 
+        .availability-badge {
+            position: fixed;
+            top: 100px;
+            right: 2rem;
+            background: rgba(45, 106, 79, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid rgba(127, 255, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            z-index: 1000;
+            font-weight: 600;
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: badgeFloat 3s ease-in-out infinite;
+        }
+        
+        .pulse-dot {
+            width: 10px;
+            height: 10px;
+            background: #7fff00;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #7fff00;
+            animation: pulse-glow 1.5s infinite;
+        }
+
+        @keyframes badgeFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes pulse-glow {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(127, 255, 0, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(127, 255, 0, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(127, 255, 0, 0); }
+        }
+
+        @media (max-width: 768px) {
+            .availability-badge { top: auto; bottom: 8rem; right: 1rem; padding: 0.6rem 1.2rem; font-size: 0.85rem; }
+        }
+
         .footer { text-align: center; padding: 3.5rem 0; border-top: 2px solid rgba(144, 238, 144, 0.2); color: rgba(255, 255, 255, 0.6); font-size: 1rem; }
         @media (max-width: 768px) {
             .hero-content h1 { font-size: 2.5rem; }
@@ -261,6 +304,10 @@
 <body>
     <div class="scroll-progress" id="scrollProgress"></div>
     <div class="custom-cursor" id="customCursor"></div>
+    <div class="availability-badge">
+        <div class="pulse-dot"></div>
+        <span>Available for Work</span>
+    </div>
     <div class="stars" id="stars"></div>
     <nav>
         <ul class="nav-links">
@@ -337,20 +384,20 @@
 
             <div class="stats">
                 <div class="stat-card">
-                    <div class="stat-number">50+</div>
+                    <div class="stat-number" data-target="50">0</div>
                     <div class="stat-label">Projects Completed</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">Client Satisfaction</div>
+                    <div class="stat-number" data-target="100">0</div>
+                    <div class="stat-label">Client Satisfaction %</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">24/7</div>
-                    <div class="stat-label">Support Available</div>
+                    <div class="stat-number" data-target="24">0</div>
+                    <div class="stat-label">Support Available (Hrs)</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">5★</div>
-                    <div class="stat-label">Average Rating</div>
+                    <div class="stat-number" data-target="5">0</div>
+                    <div class="stat-label">Average Rating (Stars)</div>
                 </div>
             </div>
         </section>
@@ -526,9 +573,35 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('reveal');
+                    // Trigger counters if this is the services section
+                    if (entry.target.id === 'services') {
+                        startCounters();
+                    }
                 }
             });
         }, observerOptions);
+
+        function startCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const increment = target / 50;
+
+                if (count < target) {
+                    const updateCounter = () => {
+                        const current = +counter.innerText;
+                        if (current < target) {
+                            counter.innerText = Math.ceil(current + increment);
+                            setTimeout(updateCounter, 30);
+                        } else {
+                            counter.innerText = target + (target === 50 ? '+' : (target === 100 ? '%' : (target === 24 ? '/7' : '★')));
+                        }
+                    };
+                    updateCounter();
+                }
+            });
+        }
 
         document.querySelectorAll('section').forEach(section => {
             revealObserver.observe(section);
