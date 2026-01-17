@@ -112,6 +112,35 @@
             opacity: 1;
         }
 
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #7fff00, #32cd32);
+            z-index: 2001;
+            box-shadow: 0 0 10px #7fff00;
+        }
+        
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            background: rgba(127, 255, 0, 0.3);
+            border: 2px solid #7fff00;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease-out;
+            box-shadow: 0 0 20px rgba(127, 255, 0, 0.5);
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .custom-cursor { display: none !important; }
+        }
+
         .footer { text-align: center; padding: 3.5rem 0; border-top: 2px solid rgba(144, 238, 144, 0.2); color: rgba(255, 255, 255, 0.6); font-size: 1rem; }
         @media (max-width: 768px) {
             .hero-content h1 { font-size: 3rem; }
@@ -125,6 +154,8 @@
     </style>
 </head>
 <body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="custom-cursor" id="customCursor"></div>
     <div class="stars" id="stars"></div>
     <nav>
         <ul class="nav-links">
@@ -359,6 +390,26 @@
                 }, 3000);
             });
         });
+
+        // Scroll Progress
+        const progressBar = document.getElementById('scrollProgress');
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            progressBar.style.width = scrolled + "%";
+        });
+
+        // Custom Cursor
+        const cursor = document.getElementById('customCursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.display = 'block';
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+        });
+
+        document.addEventListener('mousedown', () => cursor.style.transform = 'scale(0.8)');
+        document.addEventListener('mouseup', () => cursor.style.transform = 'scale(1)');
 
         // Initialize stars
         const starsContainer = document.getElementById('stars');
