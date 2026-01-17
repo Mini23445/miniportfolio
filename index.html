@@ -6,7 +6,7 @@
     <title>Mini - Developer Portfolio</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
-        
+
         :root {
             --primary-green: #0a1f1a;
             --accent-lime: #7fff00;
@@ -16,13 +16,12 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        
+
         body { 
             font-family: 'Poppins', sans-serif; 
             background: linear-gradient(135deg, #0a1f1a 0%, #1a4d2e 50%, #0a1f1a 100%); 
             color: #fff; 
             overflow-x: hidden; 
-            cursor: none;
         }
 
         .custom-cursor {
@@ -36,7 +35,7 @@
             transition: transform 0.1s ease;
             mix-blend-mode: difference;
             box-shadow: 0 0 20px var(--accent-lime);
-            display: block;
+            display: none;
         }
 
         .scroll-progress {
@@ -144,25 +143,25 @@
             from { opacity: 0; transform: translateY(40px); filter: blur(10px); } 
             to { opacity: 1; transform: translateY(0); filter: blur(0); } 
         }
-        
-        section { padding: 6rem 0; opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.22, 1, 0.36, 1); filter: blur(10px); }
+
+        section { padding: 6rem 0; opacity: 1; transform: translateY(0); transition: all 1s cubic-bezier(0.22, 1, 0.36, 1); filter: blur(0); }
         section.reveal { opacity: 1; transform: translateY(0); filter: blur(0); }
 
         .build-card, .stat-card, .review-card, .skill-card, .portfolio-card { 
             transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); 
         }
-        
+
         .build-card:hover, .stat-card:hover, .skill-card:hover, .portfolio-card:hover { 
             transform: translateY(-20px) scale(1.08) rotate(2deg); 
             box-shadow: 0 40px 100px rgba(127, 255, 0, 0.6);
             border-color: #7fff00;
             background: rgba(45, 106, 79, 0.6);
         }
-        
+
         .build-icon, .skill-icon {
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        
+
         .build-card:hover .build-icon, .skill-card:hover .skill-icon {
             transform: scale(1.3) rotate(360deg);
             filter: drop-shadow(0 0 20px #7fff00);
@@ -173,11 +172,11 @@
             letter-spacing: 1px;
             filter: brightness(1.2);
         }
-        
+
         .nav-links a {
             transition: all 0.3s ease;
         }
-        
+
         .nav-links a:hover {
             transform: translateY(-3px) scale(1.1);
             color: #7fff00 !important;
@@ -186,7 +185,7 @@
         .stat-number {
             transition: all 0.5s ease;
         }
-        
+
         .stat-card:hover .stat-number {
             transform: scale(1.2);
             filter: drop-shadow(0 0 15px #7fff00);
@@ -290,7 +289,7 @@
         .skill-card:hover { transform: translateY(-10px); border-color: #7fff00; box-shadow: 0 10px 30px rgba(127, 255, 0, 0.2); }
         .skill-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
         .skill-name { font-weight: 600; color: #fff; }
-        
+
         .copy-toast { 
             position: fixed; 
             bottom: 3rem; 
@@ -323,7 +322,7 @@
             z-index: 2001;
             box-shadow: 0 0 10px #7fff00;
         }
-        
+
         .custom-cursor {
             width: 20px;
             height: 20px;
@@ -366,7 +365,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             animation: badgeFloat 3s ease-in-out infinite;
         }
-        
+
         .pulse-dot {
             width: 10px;
             height: 10px;
@@ -437,7 +436,7 @@
             <div class="hero-content">
                 <h1>Building Digital Experiences<br><span class="gradient-text">That Stand Out</span></h1>
                 <p class="subtitle">Hey! I'm Mini, and I build cool stuff for Discord & beyond.</p>
-                
+
                 <div class="discord-status-card">
                     <div class="discord-avatar-container">
                         <div class="discord-avatar">M</div>
@@ -650,9 +649,6 @@
 
         bgMusic.addEventListener('ended', nextSong);
 
-        // Initial load
-        loadSong(currentSongIndex);
-
         // Initialize stars
         window.history.replaceState(null, null, window.location.pathname);
         window.scrollTo(0, 0);
@@ -670,17 +666,21 @@
         // Custom Cursor
         const cursor = document.getElementById('customCursor');
         document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
             cursor.style.display = 'block';
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
         });
+
+        document.addEventListener('mousedown', () => cursor.style.transform = 'scale(0.8)');
+        document.addEventListener('mouseup', () => cursor.style.transform = 'scale(1)');
 
         // Scroll Progress
         const progressBar = document.getElementById('scrollProgress');
         window.addEventListener('scroll', () => {
-            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (window.scrollY / windowHeight) * 100;
-            progressBar.style.width = scrolled + '%';
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            progressBar.style.width = scrolled + "%";
         });
 
         // Function to handle initial play
@@ -734,26 +734,6 @@
                 }, 3000);
             });
         });
-
-        // Scroll Progress
-        const progressBar = document.getElementById('scrollProgress');
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            progressBar.style.width = scrolled + "%";
-        });
-
-        // Custom Cursor
-        const cursor = document.getElementById('customCursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.display = 'block';
-            cursor.style.left = e.clientX - 10 + 'px';
-            cursor.style.top = e.clientY - 10 + 'px';
-        });
-
-        document.addEventListener('mousedown', () => cursor.style.transform = 'scale(0.8)');
-        document.addEventListener('mouseup', () => cursor.style.transform = 'scale(1)');
 
         // Initialize Scroll Reveal
         const observerOptions = {
