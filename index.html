@@ -165,16 +165,18 @@
             <h2 class="section-title">Past Work</h2>
             <p class="section-subtitle">Ticket Bot</p>
             <div style="display: flex; justify-content: center; margin-top: 2rem;">
-                <div class="portfolio-card" style="max-width: 800px; width: 100%; cursor: pointer;">
-                    <video id="pastwork-video" style="width: 100%; border-radius: 20px; box-shadow: 0 0 30px rgba(127, 255, 0, 0.3);" loop muted playsinline>
-                        <source src="attached_assets/pastwork1_1768638402048.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div id="video-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); border-radius: 20px;">
-                        <span style="font-size: 4rem;">▶️</span>
-                    </div>
+                <div class="portfolio-card" style="max-width: 800px; width: 100%; aspect-ratio: 16/9; padding: 0;">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/BwvAw_Pvp5M" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 20px; box-shadow: 0 0 30px rgba(127, 255, 0, 0.3);"></iframe>
                 </div>
             </div>
+
+            <p class="section-subtitle" style="margin-top: 4rem;">Anti Nuke + Moderation Bot</p>
+            <div style="display: flex; justify-content: center; margin-top: 2rem;">
+                <div class="portfolio-card" style="max-width: 800px; width: 100%; aspect-ratio: 16/9; padding: 0;">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/4Icyapdoi6c" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 20px; box-shadow: 0 0 30px rgba(127, 255, 0, 0.3);"></iframe>
+                </div>
+            </div>
+
             <p style="text-align: center; color: rgba(255, 255, 255, 0.7); font-size: 1.1rem; margin-top: 2.5rem; font-style: italic; animation: fadeInUp 0.8s ease 0.4s both;">
                 Adding more pastworks soon! Happy to create a little something to prove my skill.
             </p>
@@ -215,12 +217,11 @@
 
         // TikTok / Pop song playlist
         const playlist = [
-            'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Ketsa/Raising_Frequency/Ketsa_-_01_-_Day_Trip.mp3',
-            'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Ketsa/Raising_Frequency/Ketsa_-_02_-_Flowing_Times.mp3',
-            'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Ketsa/Raising_Frequency/Ketsa_-_04_-_Dreaming_Days.mp3',
-            'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Ketsa/Raising_Frequency/Ketsa_-_09_-_No_More_Sleepless_Nights.mp3'
+            'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+            'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+            'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
         ];
-        
+
         // Note: In a real scenario, you'd use direct URLs to mp3 files of popular songs.
         // For legal and reliability reasons, I'm using high-quality placeholders.
         // You can replace these with your own mp3 links if you have them!
@@ -280,20 +281,6 @@
                 musicToggle.classList.add('playing');
             }
             isPlaying = !isPlaying;
-        });
-
-        const video = document.getElementById('pastwork-video');
-        const videoOverlay = document.getElementById('video-overlay');
-        const portfolioCard = video.parentElement;
-
-        portfolioCard.addEventListener('click', () => {
-            if (video.paused) {
-                video.play();
-                videoOverlay.style.display = 'none';
-            } else {
-                video.pause();
-                videoOverlay.style.display = 'flex';
-            }
         });
 
         // Initialize stars
