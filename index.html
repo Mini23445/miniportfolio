@@ -25,23 +25,56 @@
         .hero::before { content: ''; position: absolute; top: 50%; left: 50%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(127, 255, 0, 0.15) 0%, transparent 70%); transform: translate(-50%, -50%); animation: pulse 4s ease-in-out infinite; pointer-events: none; }
         @keyframes pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; } 50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; } }
         .hero-content h1 { font-size: 5.5rem; font-weight: 800; margin-bottom: 1.5rem; color: #fff; line-height: 1.1; animation: fadeInUp 0.8s ease, textGlow 2s ease-in-out infinite; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes textGlow { 0%, 100% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.3); } 50% { text-shadow: 0 0 40px rgba(255, 255, 255, 0.6), 0 0 60px rgba(127, 255, 0, 0.3); } }
-        .gradient-text { background: linear-gradient(135deg, #7fff00, #90ee90, #32cd32, #7fff00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block; animation: shimmer 3s infinite; background-size: 300% auto; filter: drop-shadow(0 0 30px rgba(127, 255, 0, 0.5)); }
-        @keyframes shimmer { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
-        .subtitle { font-size: 1.4rem; color: rgba(255, 255, 255, 0.8); margin-bottom: 1rem; font-weight: 400; animation: fadeInUp 0.8s ease 0.2s both; }
-        .description { font-size: 1.1rem; color: rgba(255, 255, 255, 0.65); margin-bottom: 3rem; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.7; animation: fadeInUp 0.8s ease 0.4s both; }
-        .cta-buttons { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; animation: fadeInUp 0.8s ease 0.6s both; }
-        .btn { padding: 1.2rem 3rem; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.1rem; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: inline-flex; align-items: center; gap: 1rem; border: none; cursor: pointer; position: relative; overflow: hidden; }
-        .btn::before { content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.3); transform: translate(-50%, -50%); transition: width 0.6s ease, height 0.6s ease; }
-        .btn:hover::before { width: 400px; height: 400px; }
-        .btn span { position: relative; z-index: 1; }
-        .btn-primary { background: linear-gradient(135deg, #dc2626, #ef4444); color: white; box-shadow: 0 10px 40px rgba(220, 38, 38, 0.5); animation: btnPulse 2s ease-in-out infinite; }
-        @keyframes btnPulse { 0%, 100% { box-shadow: 0 10px 40px rgba(220, 38, 38, 0.5); } 50% { box-shadow: 0 10px 60px rgba(220, 38, 38, 0.8), 0 0 0 10px rgba(220, 38, 38, 0.1); } }
-        .btn-primary:hover { transform: translateY(-6px) scale(1.08); box-shadow: 0 20px 60px rgba(220, 38, 38, 0.7); animation: none; }
-        .btn-secondary { background: linear-gradient(135deg, #7fff00, #32cd32); color: #1a4d2e; box-shadow: 0 10px 40px rgba(127, 255, 0, 0.4); }
-        .btn-secondary:hover { transform: translateY(-6px) scale(1.08); box-shadow: 0 20px 60px rgba(127, 255, 0, 0.7); }
-        section { padding: 6rem 0; animation: fadeInUp 0.8s ease; }
+        @keyframes fadeInUp { 
+            from { opacity: 0; transform: translateY(40px); filter: blur(10px); } 
+            to { opacity: 1; transform: translateY(0); filter: blur(0); } 
+        }
+        
+        section { padding: 6rem 0; opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.22, 1, 0.36, 1); filter: blur(10px); }
+        section.reveal { opacity: 1; transform: translateY(0); filter: blur(0); }
+
+        .build-card, .stat-card, .review-card, .skill-card, .portfolio-card { 
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); 
+        }
+        
+        .build-card:hover, .stat-card:hover, .skill-card:hover { 
+            transform: translateY(-15px) scale(1.05) rotate(1deg); 
+            box-shadow: 0 25px 70px rgba(127, 255, 0, 0.4);
+            border-color: rgba(127, 255, 0, 0.8);
+        }
+
+        .gradient-text { 
+            background: linear-gradient(135deg, #7fff00, #90ee90, #32cd32, #7fff00); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            display: block; 
+            animation: shimmer 4s infinite linear; 
+            background-size: 200% auto; 
+            filter: drop-shadow(0 0 20px rgba(127, 255, 0, 0.3)); 
+        }
+
+        .btn { 
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            transform-origin: center;
+        }
+        .btn:active { transform: scale(0.92); }
+
+        .nav-links a::after { 
+            content: ''; 
+            position: absolute; 
+            bottom: -5px; 
+            left: 50%; 
+            width: 0; 
+            height: 3px; 
+            background: linear-gradient(90deg, #7fff00, #32cd32); 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            border-radius: 2px; 
+            box-shadow: 0 0 10px #7fff00;
+            transform: translateX(-50%);
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        .star { animation: twinkle 2s infinite ease-in-out, float-star 25s infinite linear; opacity: 0.6; }
         .section-title { font-size: 3.5rem; text-align: center; margin-bottom: 1rem; color: #fff; font-weight: 800; animation: titleFloat 3s ease-in-out infinite; text-shadow: 0 0 30px rgba(127, 255, 0, 0.3); }
         @keyframes titleFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         .section-subtitle { text-align: center; color: rgba(255, 255, 255, 0.7); font-size: 1.2rem; margin-bottom: 4rem; }
@@ -143,13 +176,26 @@
 
         .footer { text-align: center; padding: 3.5rem 0; border-top: 2px solid rgba(144, 238, 144, 0.2); color: rgba(255, 255, 255, 0.6); font-size: 1rem; }
         @media (max-width: 768px) {
-            .hero-content h1 { font-size: 3rem; }
-            nav { padding: 1rem 1.5rem; }
-            .nav-links { gap: 1rem; }
-            .nav-links a { font-size: 0.85rem; }
-            .reviews, .what-i-build { grid-template-columns: 1fr; }
-            .section-title { font-size: 2.5rem; }
-            .music-toggle { width: 60px; height: 60px; bottom: 1.5rem; right: 1.5rem; font-size: 1.8rem; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .subtitle { font-size: 1.1rem; }
+            .description { font-size: 0.95rem; padding: 0 10px; }
+            nav { width: 90%; padding: 0.8rem 1.2rem; top: 10px; }
+            .nav-links { gap: 0.8rem; justify-content: center; width: 100%; }
+            .nav-links a { font-size: 0.8rem; }
+            .reviews, .what-i-build, .stats, .skills-grid { grid-template-columns: 1fr; }
+            .section-title { font-size: 2.2rem; }
+            .music-toggle { width: 55px; height: 55px; bottom: 1rem; right: 1rem; font-size: 1.5rem; }
+            .cta-buttons { flex-direction: column; gap: 1rem; align-items: center; }
+            .btn { width: 100%; max-width: 300px; justify-content: center; padding: 1rem 2rem; }
+            .build-card, .stat-card, .review-card { padding: 2rem 1.5rem; }
+            .skills-section { margin-top: 4rem; }
+            .container { padding: 0 1rem; }
+            .hero { padding-top: 8rem; }
+        }
+        @media (max-width: 480px) {
+            .hero-content h1 { font-size: 2rem; }
+            .nav-links { gap: 0.5rem; }
+            .nav-links a { font-size: 0.75rem; }
         }
     </style>
 </head>
@@ -410,6 +456,24 @@
 
         document.addEventListener('mousedown', () => cursor.style.transform = 'scale(0.8)');
         document.addEventListener('mouseup', () => cursor.style.transform = 'scale(1)');
+
+        // Initialize Scroll Reveal
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            revealObserver.observe(section);
+        });
 
         // Initialize stars
         const starsContainer = document.getElementById('stars');
