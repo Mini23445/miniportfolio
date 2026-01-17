@@ -253,22 +253,26 @@
             bgMusic.play().then(() => {
                 musicToggle.classList.add('playing');
                 isPlaying = true;
+                console.log("Music started via user interaction");
+                // Remove listeners after first successful play
+                document.removeEventListener('click', startMusic);
+                document.removeEventListener('scroll', startMusic);
+                document.removeEventListener('keydown', startMusic);
             }).catch(e => {
-                console.log("Autoplay blocked. Waiting for user interaction.");
-                isPlaying = false;
-                musicToggle.classList.remove('playing');
+                console.log("Playback attempt failed", e);
             });
-            // Remove listener after first interaction attempt
-            document.removeEventListener('click', startMusic);
         }
 
-        // Try playing immediately, if fails, wait for click
+        // Try playing immediately, if fails, wait for ANY interaction
         window.addEventListener('load', () => {
             bgMusic.play().then(() => {
                 musicToggle.classList.add('playing');
                 isPlaying = true;
             }).catch(() => {
+                console.log("Autoplay blocked. Adding interaction listeners.");
                 document.addEventListener('click', startMusic);
+                document.addEventListener('scroll', startMusic);
+                document.addEventListener('keydown', startMusic);
             });
         });
 
